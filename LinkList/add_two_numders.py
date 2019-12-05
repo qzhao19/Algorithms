@@ -39,13 +39,13 @@ class Solution:
         num1, num2 = self.convert(l1), self.convert(l2)
         num = num1 + num2 
 
-        new_list = Node(num%10)
-        # new_list = root
+        root = Node(num%10)
+        new_list = root
         num = num // 10
         while num != 0:
             new_list = Node(num%10)
             new_list = new_list.next
             num = num // 10
 
-        return new_list
+        return root
 
