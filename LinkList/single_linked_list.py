@@ -37,8 +37,37 @@ class LinkedList(object):
 
         self._head.next = new_node
 
-    def insert_
+    def insert_before(self, prev_node, data):
+        """Insert a new data node in a specific position which is before a node
+        """
+        # make sure if the given prev_node exists 
+        if prev_node is None: 
+            print('The given previous node must inLinkedList.')
+            return
+        # create a new node
+        new_node = Node(data)
 
+        # new node must point to a node that prev node pointed
+        new_node.next = prev_node.next
+        # change prev_node point to current new node
+        prev_node.next = new_node
+
+    def find(self, target, next_node, n_nodes):
+        """Find the first node from nth succscor node at the target node
+
+        """
+        while n_nodes>0:
+            curr_node = next_node.next
+            if taget == curr_node.data:
+                return curr_node
+            return None
+
+
+    def delete_node(self, target):
+        """
+
+        """
         
             
+
 
