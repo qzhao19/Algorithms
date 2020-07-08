@@ -31,6 +31,7 @@ public:
                 carry += l2 -> val;
                 l2 = l2 -> next;
             }
+            // add carry val to next position
             cur_node -> next = new ListNode(carry%10);
             // move current pointer
             cur_node = cur_node -> next;
