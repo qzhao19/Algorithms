@@ -21,6 +21,6 @@ int main(){
     // system("pause");
     // return 0;
 
-    cout << "hellow woerld"<< endl;
+    // cout << "hellow woerld"<< endl;
 
 }
