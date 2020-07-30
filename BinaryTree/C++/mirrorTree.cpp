@@ -9,21 +9,23 @@
  */
 class Solution {
 private:
+    TreeNode* helper(TreeNode *root){
 
-    void dfs(TreeNode *node){
-        if (node){
-            swap(node -> left, node -> right);
-            dfs(node -> left);
-            dfs(node -> right);
+        if (root) {
+
+            swap(root->left, root->right);
+            root->left = helper(root->left);
+            root->right = helper(root->right);
         }
-    }
 
+        return root;
+    }
 public:
     TreeNode* mirrorTree(TreeNode* root) {
-        if (root == NULL){
+        if (root == NULL) {
             return nullptr;
         }
-        dfs(root);
-        return root;
+
+        return helper(root);
     }
 };
