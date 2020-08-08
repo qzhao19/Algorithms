@@ -1,60 +1,41 @@
-/*
-int threeSumClosest(vector<int>& nums, int target) {
-        int ans = 0, min_diff = 1e5;
-        sort(nums.begin(), nums.end());
-        for(int i = 0; i < nums.size(); i++){
-            int j = 0, k = nums.size() - 1;
-            while(j < i && k >i){
-                auto sum = nums[i] + nums[j] + nums[k];
-                auto diff = abs(sum - target);
-                if(diff < min_diff) {
-                    min_diff = diff; ans = sum;
-                }
-                if(sum == target) return target;
-                if (sum > target) k--;
-                else j++;
-            }
-        }
-        return ans;
-    }
-*/
 class Solution {
 public:
     int threeSumClosest(vector<int>& nums, int target) {
-        
-        // same idea with threeSum problem
-        
-        // 1. do sort for array
-        sort(nums.begin(), nums.end());
-        
-        // define begin, mid, end and INT_MAX
-        // int i, j, k;
-        int len = nums.size();
-        int best = INT_MAX;
-        int ret_val = 0;
-        for (int i = 0; i < len - 2; i++){
-            // define begin, mid, end
-            int j = i + 1;
-            int k = len - 1;
-            while (j < k){
-                int sum = nums[i] + nums[j] + nums[k];
-                if(sum == target){
-                    return sum;
-                }else if (sum < target){
-                   if(target - sum < best){
-                       best = target - sum;
-                       ret_val = sum;
-                   } 
-                    j++;
-                }else if (sum > target){
-                    if (sum - target < best){
-                        best = sum - target;
-                        ret_val = sum;
-                    }
-                    k--;
-                }
-            }   
+
+        if (nums.size() <= 0) {
+            return 0;
         }
-        return ret_val;     
+        int ans = 0;
+        int closed_val = INT_MAX;
+
+        sort(nums.begin(), nums.end());
+
+        for (int i = 0; i < nums.size() - 2; i++) {
+            int left = i + 1, right = nums.size() - 1;
+            while (left < right) {
+                int cur_sum = nums[i] + nums[left] + nums[right];
+                if (cur_sum == target) {
+                    ans = cur_sum;
+                    return ans;
+                }
+                else if (cur_sum < target) {
+                    if (target - cur_sum < closed_val) {
+                        // closed_val = min(target - cur_sum, closed_val);
+                        // ans = cur_sum;
+                        closed_val = target - cur_sum;
+                        ans = cur_sum;
+                    }
+                    left++;
+                } else { // cur_sum > target
+                    if (cur_sum - target < closed_val) {
+                        closed_val = cur_sum - target;
+                        ans = cur_sum;
+                    }
+                    right--;
+                }
+            }
+        }
+
+        return ans;
     }
 };
