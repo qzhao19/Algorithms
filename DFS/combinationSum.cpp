@@ -9,19 +9,24 @@ public:
             return ;
         }
 
-        if (target < 0) {
-            return ;
-        }
+        for (int i = depth; i < candidates.size(); i++) {
 
-        for (int i = depth; i < candidates.size() && target - candidates[i] >=0; i++) {
-            path.push_back(candidates[i]);
-            backtrack(candidates, target - candidates[i], i);
-            path.pop_back();
+            if (target - candidates[i] >= 0) {
+                path.push_back(candidates[i]);
+                backtrack(candidates, target - candidates[i], i);
+                path.pop_back();
+            }
+            
         }
     }
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        backtrack(candidates, target, 0);
 
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        
+        if (candidates.size() == 0) {
+            return {};
+        }
+
+        backtrack(candidates, target, 0);
         return ans;
     }
 };
