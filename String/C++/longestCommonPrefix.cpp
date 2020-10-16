@@ -1,18 +1,13 @@
 class Solution {
 public:
     string longestCommonPrefix(string &s1, string &s2) {
+        int index = 0, min_str_len = min(s1.size(), s2.size());
 
-        if (s1.size() == 0 ||s2.size() == 0) {
-            return "";
+        while (index < min_str_len && s1[index] == s2[index]) {
+            index++;
         }
 
-        int min_length = min(s1.size(), s2.size());
-        int idx = 0;
-        while (idx <= min_length && s1[idx] == s2[idx]) {
-            idx++;
-        }
-
-        return s1.substr(0, idx);
+        return s1.substr(0, index);
     }
 
     string longestCommonPrefix(vector<string>& strs) {
@@ -20,12 +15,12 @@ public:
             return "";
         }
 
-        string ans = strs[0];
+        string result = strs[0];
+
         for (int i = 1; i < strs.size(); i++) {
-            ans = longestCommonPrefix(ans, strs[i]);
+            result = longestCommonPrefix(result, strs[i]);
         }
 
-        return ans;
-
+        return result;
     }
 };
