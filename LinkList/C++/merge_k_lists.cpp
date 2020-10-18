@@ -10,50 +10,42 @@
  */
 class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2){
-        
-        // checkout exceptional case
-        if ((!l1) || (!l2)){
-            return l1 ? l1: l2;
+
+    ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
+        if (l1 == NULL || l2 == NULL) {
+            return l1 ? l1 : l2;
         }
-        
-        // define a new head node and before_insert node
-        
-        ListNode *head = new ListNode(0);
-        ListNode *before_insert = head;
-        
-        while (l1 != NULL && l2 != NULL){
-            
-            // compare l1 and l1 vals
-            if ((l1 -> val) < (l2 -> val)){
-                before_insert -> next = l1;
+
+        ListNode *dummy_node = new ListNode(0);
+        ListNode *cur_ptr = dummy_node;
+
+        while (l1 != NULL && l2 != NULL) {
+            if (l1 -> val < l2 -> val) {
+                cur_ptr -> next = l1;
                 l1 = l1 -> next;
-            }else{
-                before_insert -> next = l2;
+            }
+            else {
+                cur_ptr -> next = l2;
                 l2 = l2 -> next;
             }
-            // update before_insert node
-            before_insert = before_insert -> next;
+            cur_ptr = cur_ptr -> next;
         }
-        // merge 
-        before_insert -> next = (l1 ? l1 : l2);
-        
-        return head -> next;
+        cur_ptr -> next = (l1 ? l1 : l2);
+
+        return dummy_node -> next;
     }
-    
-    
+
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        // define a ans node
-        ListNode *ans = nullptr;
-        for(int i = 0; i < lists.size(); i++){
-            ans = mergeTwoLists(ans, lists[i]);
+        if (lists.size() == 0) {
+            return nullptr;
         }
-        return ans;
-        
+
+        ListNode *result = lists[0];
+
+        for (int i = 1; i < lists.size(); i++) {
+            result = mergeTwoLists(result, lists[i]);
+        }
+
+        return result;
     }
 };
-
-
-
-
-
