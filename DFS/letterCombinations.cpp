@@ -1,33 +1,34 @@
 class Solution {
 private:
-    unordered_map<char, string> hash_map{{'2', "abd"}, {'3', "def"}, 
-                                         {'4', "ghi"}, {'5', "jkl"}, 
-                                         {'6', "mno"}, {'7', "pqrs"}, 
-                                         {'8', "tuv"}, {'9', "wxyz"}};
-    vector<string> ans;
+    unordered_map<char, string> hash_map = {{'2', "abc"}, {'3', "def"}, 
+                                            {'4', "ghi"}, {'5', "jkl"}, 
+                                            {'6', "mno"}, {'7', "pqrs"}, 
+                                            {'8', "tuv"}, {'9', "wxyz"}};
+    vector<string> result;
     string str;
+
 public:
-    void dfs(string digits, int depth) {
-        if (digits.size() == depth) {
-            ans.push_back(str);
+
+    void backtrack(string digits, int start) {
+        if (digits.size() == start) {
+            result.push_back(str);
             return ;
         }
 
-        for (int i = 0; i < hash_map[digits[depth]].size(); i++) {
-            str += hash_map[digits[depth]][i];
-            dfs(digits, depth + 1);
+        for (int i = 0; i < hash_map[digits[start]].size(); i++) {
+            str.push_back(hash_map[digits[start]][i]);
+            backtrack(digits, start + 1);
             str.pop_back();
         }
-    }
 
+    }
 
     vector<string> letterCombinations(string digits) {
         if (digits.size() == 0) {
             return {};
         }
 
-        dfs(digits, 0);
-
-        return ans;
+        backtrack(digits, 0);
+        return result;
     }
 };
