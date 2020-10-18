@@ -1,13 +1,13 @@
 class Solution {
-private:
-    vector<string> ans;
-    string str;
 
+private:
+    vector<string> result;
+    string str;
 public:
-    void backtrack(int left, int right, int n) {
+    void backtrack(int n, int left, int right) {
         if (left == n && right == n) {
-            ans.push_back(str);
-            return ;
+            result.push_back(str);
+            return;
         }
 
         if (left < right) {
@@ -16,21 +16,25 @@ public:
 
         if (left < n) {
             str.push_back('(');
-            backtrack(left + 1, right, n);
+            backtrack(n, left + 1, right);
             str.pop_back();
         }
 
         if (right < n) {
             str.push_back(')');
-            backtrack(left, right + 1, n);
+            backtrack(n, left, right + 1);
             str.pop_back();
         }
+
     }
 
     vector<string> generateParenthesis(int n) {
-        
-        backtrack(0, 0, n);
+        if (n == 0) {
+            return {};
+        }
 
-        return ans;
+        backtrack(n, 0, 0);
+
+        return result;
     }
 };
