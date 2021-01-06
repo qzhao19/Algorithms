@@ -2,20 +2,18 @@ class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
         
-        //check exception
-        if (nums.empty()){
+        int j = 0;
+
+        if (nums.size() == 0) {
             return 0;
         }
-        
-        // define target index
-        int target_idx = 0;
-        
-        for (int i = 1; i < nums.size(); i++){
-            
-            if (nums[target_idx] != nums[i]){
-                nums[++target_idx] = nums[i];
+
+        for (int i = 1; i < nums.size(); i++) {
+            if (nums[i] != nums[j]) {
+                nums[++j] = nums[i];
             }
         }
-        return target_idx + 1;
+
+        return j + 1;
     }
 };
