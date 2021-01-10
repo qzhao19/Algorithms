@@ -3,7 +3,9 @@
  * struct ListNode {
  *     int val;
  *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
 class Solution {
@@ -13,20 +15,19 @@ public:
             return nullptr;
         }
 
-        ListNode *dummy_node = new ListNode(INT_MAX);
+        ListNode *dummy_node = new ListNode(0);
         dummy_node -> next = head;
+        ListNode *prev_ptr = dummy_node;
 
-        ListNode *prev_node = dummy_node;
+        while (prev_ptr -> next != NULL && prev_ptr -> next -> next != NULL) {
+            ListNode *cur_ptr = prev_ptr -> next;
+            ListNode *succ_ptr = prev_ptr -> next -> next;
 
-        while (prev_node -> next != NULL && prev_node -> next -> next != NULL) {
-            ListNode *cur_node = prev_node -> next;
-            ListNode *succ_node = prev_node -> next -> next;
+            prev_ptr -> next = succ_ptr;
+            cur_ptr -> next = succ_ptr -> next;
+            succ_ptr -> next = cur_ptr;
 
-            prev_node -> next = succ_node;
-            cur_node -> next = succ_node -> next;
-            succ_node -> next = cur_node;
-
-            prev_node = prev_node -> next -> next;
+            prev_ptr = prev_ptr -> next -> next;
         }
 
         return dummy_node -> next;
