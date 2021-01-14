@@ -19,3 +19,24 @@ public:
         return stk.empty();
     }
 };
+
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        unordered_map<int, char> rows[9], cols[9], boxes[9];
+
+        // cout<< rows[1][1] << endl;
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] != '.' && 
+                    (rows[i][board[i][j]]++ || 
+                     cols[j][board[i][j]]++ || 
+                     boxes[i / 3 * 3 + j / 3][board[i][j]])) {
+                        return false;
+                    }
+            }
+        }
+
+        return true;
+    }
+};
