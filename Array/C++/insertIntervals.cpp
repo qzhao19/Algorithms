@@ -2,31 +2,31 @@ class Solution {
 public:
     vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
         int n = intervals.size();
-        int i = 0;
+        int i;
 
-        vector<vector<int>> ans;
+        vector<vector<int>> result;
 
         for (i = 0; i < n; i++) {
             if (intervals[i][1] < newInterval[0]) {
-                ans.push_back(intervals[i]);
-            } 
+                result.push_back(intervals[i]);
+            }
             else {
                 break;
             }
         }
 
-        ans.push_back(newInterval);
+        result.push_back(newInterval);
 
         for (; i < n; i++) {
-            if (ans.back()[1] < intervals[i][0]) {
-                ans.push_back(intervals[i]);
-            } 
+            if (result.back()[1] < intervals[i][0]) {
+                result.push_back(intervals[i]);
+            }
             else {
-                ans.back()[0] = min(ans.back()[0], intervals[i][0]);
-                ans.back()[1] = max(ans.back()[1], intervals[i][1]);
+                result.back()[0] = min(result.back()[0], intervals[i][0]);
+                result.back()[1] = max(result.back()[1], intervals[i][1]);
             }
         }
 
-        return ans;
+        return result;
     }
 };
