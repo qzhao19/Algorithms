@@ -31,3 +31,52 @@ public:
         return ans;
     }
 };
+
+
+class Solution {
+private:
+    string result;
+    vector<bool> status;
+
+public:
+    int factorial(int n) {
+        int result = 1;
+        while (n > 0) {
+            result *= n--;
+        }
+        return result;
+    }
+
+    void dfs(int n, int k) {
+        int res_len = result.size();
+
+        if (res_len == n) {
+            return ;
+        }
+
+        for (int i = 1; i <= n; i++) {
+            if (status[i] == true) {
+                continue;
+            }
+
+            int cnt = factorial(n - res_len - 1);
+            if (cnt < k) {
+                k -= cnt;
+                continue;
+            }
+
+            result += to_string(i);
+            status[i] = true;
+            dfs(n, k);
+            return ;
+        }
+    }
+
+    string getPermutation(int n, int k) {
+        status.resize(n + 1, false);
+
+        dfs(n, k);
+
+        return result;
+    }
+};
