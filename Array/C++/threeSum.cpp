@@ -1,14 +1,22 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        set<vector<int>> hash_set;
         int n = nums.size();
-        if (n <= 2) {
+        if (n < 3) {
             return {};
         }
+        vector<vector<int>> result;
+        set<vector<int>> hash_set;
+
         sort(nums.begin(), nums.end());
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n - 2; i++) {
             int left = i + 1, right = n - 1;
+            if (nums[i] > 0) {
+                break;
+            }
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
             while (left < right) {
                 int sum = nums[i] + nums[left] + nums[right];
                 if (sum == 0) {
@@ -29,7 +37,7 @@ public:
             }
         }
 
-        vector<vector<int>> result = {hash_set.begin(), hash_set.end()};
+        result = {hash_set.begin(), hash_set.end()};
 
         return result;
     }
