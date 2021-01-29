@@ -3,39 +3,39 @@
  * struct ListNode {
  *     int val;
  *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
 class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int m, int n) {
-        
-        if (head == NULL) return NULL;
-        if (n < m) return NULL;
+        if (head == NULL) {
+            return nullptr;
+        }
+        if (m > n) {
+            return nullptr;
+        } 
 
-        // dummy node
         ListNode *dummy_node = new ListNode(0);
         dummy_node -> next = head;
 
-        ListNode *prev_node = dummy_node;
+        ListNode *prev_ptr = dummy_node;
 
-        for (int i = 0; i < m - 1; i++){
-            prev_node = prev_node -> next;
+        for (int i = 0; i < m - 1; i++) {
+            prev_ptr = prev_ptr -> next;
         }
 
-        //define current node
-        ListNode *cur_node = prev_node -> next;
+        ListNode *cur_ptr = prev_ptr -> next;
 
-        for (int i = m; i < n; i++){
-            //define successor node
-            ListNode *succ_node = cur_node -> next;
-            cur_node -> next = succ_node -> next;
-            succ_node -> next = prev_node -> next;
-            prev_node -> next = succ_node;
-
+        for (int i = m; i < n; i++) {
+            ListNode *succ_ptr = cur_ptr -> next;
+            cur_ptr -> next = succ_ptr -> next;
+            succ_ptr -> next = prev_ptr -> next;
+            prev_ptr -> next = succ_ptr;
         }
 
         return dummy_node -> next;
-
     }
 };

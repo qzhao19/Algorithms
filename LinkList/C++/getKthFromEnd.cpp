@@ -9,22 +9,22 @@
 class Solution {
 public:
     ListNode* getKthFromEnd(ListNode* head, int k) {
-
-        ListNode *first = head;
-        ListNode *second = head;
-
-        while (first != NULL && k > 0){
-            first = first -> next;
-            k--;
+        if (head == NULL) {
+            return nullptr;
         }
 
-        while (first != NULL){
-            first = first -> next;
-            second = second -> next;
+        ListNode *fast_ptr = head;
+        ListNode *slow_ptr = head;
 
+        for (int i = 0; i < k; i++) {
+            fast_ptr = fast_ptr -> next;
         }
 
-        return second;
+        while (fast_ptr != NULL) {
+            fast_ptr = fast_ptr -> next;
+            slow_ptr = slow_ptr -> next;
+        }
 
+        return slow_ptr;
     }
 };
