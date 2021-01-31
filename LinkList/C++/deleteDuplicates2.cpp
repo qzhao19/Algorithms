@@ -42,3 +42,32 @@ public:
         
     }
 };
+
+
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if (head == NULL || head -> next == NULL) {
+            return head;
+        }
+
+        map<int, int> hash_map;
+        while (head != NULL) {
+            hash_map[head -> val]++;
+            head = head -> next;
+        }
+
+        ListNode *dummy_node = new ListNode(0);
+        ListNode *cur_ptr = dummy_node;
+
+        map<int, int>:: iterator iter;
+        for (iter = hash_map.begin(); iter != hash_map.end(); iter++) {
+            if (iter -> second == 1) {
+                cur_ptr -> next = new ListNode(iter -> first);
+                cur_ptr = cur_ptr -> next;
+            }
+        }
+
+        return dummy_node -> next;
+    }
+};
